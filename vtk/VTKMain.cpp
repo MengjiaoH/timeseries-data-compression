@@ -39,13 +39,13 @@ int main(int argc, const char** argv)
             }
         }
     }
-    // Sort time steps 
+    // Sort time steps
     std::sort(files.begin(), files.end(), sort_timestep());
 
     std::vector<std::vector<float>> volumes;
     ospcommon::math::vec3i dims;
 
-    // only load 2 time steps for testing now 
+    // only load 2 time steps for testing now
     int count = args.numTimesteps;
     int numFiles = 0;
     std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
@@ -60,7 +60,7 @@ int main(int argc, const char** argv)
                 compute_deltas(volumes.back(), v);
             }
             volumes.push_back(v);
-            numFiles++;  
+            numFiles++;
         }
     }
     std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();

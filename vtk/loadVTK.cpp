@@ -13,7 +13,7 @@ void loadVTK(std::string file, std::vector<float> &volume, ospcommon::math::vec3
     int dim[3] = {0, 0, 0};
     grid -> GetDimensions(dim);
     std::cout << " Dimensions " << dim[0] << " " << dim[1] << " " << dim[2] << std::endl;
-    dims[0] = dim[0]; dims[1] = dim[1]; dims[2] = dim[2]; 
+    dims[0] = dim[0]; dims[1] = dim[1]; dims[2] = dim[2];
     // volume.dim.x = dim[0]; volume.dim.y = dim[1]; volume.dim.z = dim[2];
     //Get Data Array
     vtkSmartPointer<vtkGeometryFilter> geometryFilter = vtkSmartPointer<vtkGeometryFilter>::New();

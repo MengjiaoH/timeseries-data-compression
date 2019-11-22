@@ -11,9 +11,8 @@ set_target_properties(vtk-analysis PROPERTIES
     CXX_STANDARD_REQUIRED ON)
 
 add_library(vtk_libs loadVTK.h
-                     loadVTK.cpp)       
-
+                     loadVTK.cpp)
 
 target_link_libraries(vtk_libs ${VTK_LIBRARIES} ospcommon::ospcommon)
 
-target_link_libraries(vtk-analysis vtk_libs util)     
+target_link_libraries(vtk-analysis vtk_libs util)
