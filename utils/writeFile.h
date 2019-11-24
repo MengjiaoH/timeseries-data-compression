@@ -56,8 +56,8 @@ void writeRaw(std::vector<float> voxels, std::string fileDir, ospcommon::math::v
      size_t zfpsize;    /* byte size of compressed stream */
 
      /* allocate meta data for the 3D array a[nz][ny][nx] */
-     type = zfp_type_float;
-     field = zfp_field_3d(array, type, nx, ny, nz);
+     //type = zfp_type_float;
+     //field = zfp_field_3d(array, type, nx, ny, nz);
 
      /* allocate meta data for a compressed stream */
      zfp = zfp_stream_open(NULL);
@@ -68,7 +68,8 @@ void writeRaw(std::vector<float> voxels, std::string fileDir, ospcommon::math::v
      zfp_stream_set_accuracy(zfp, tolerance);
 
      /* allocate buffer for compressed data */
-     bufsize = zfp_stream_maximum_size(zfp, field);
+     //bufsize = zfp_stream_maximum_size(zfp, field);
+     bufsize = 300;
      buffer = malloc(bufsize);
 
       //std::cout << "buffer size " << bufsize << std::endl;
@@ -101,7 +102,7 @@ void writeRaw(std::vector<float> voxels, std::string fileDir, ospcommon::math::v
 
 
      /* clean up */
-     zfp_field_free(field);
+     //zfp_field_free(field);
      zfp_stream_close(zfp);
      stream_close(stream);
      free(buffer);
