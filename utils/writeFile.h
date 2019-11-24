@@ -19,11 +19,11 @@ void writeRaw(std::vector<float> voxels, std::string fileDir, ospcommon::math::v
     std::vector<float> sub_volume(4 * 4 * 4, 0);
 
     for(int z = 0; z < bz; z++){
-        std::vector<int> z_index = {z * 4, z * 4 + 1, z * 4 + 2, z * 4 + 3};
+        int z_index[] = {z * 4, z * 4 + 1, z * 4 + 2, z * 4 + 3};
         for(int y = 0; y < by; y++){
-            std::vector<int> y_index = {y * 4, y * 4 + 1, y * 4 + 2, y * 4 + 3};
+            int y_index[] = {y * 4, y * 4 + 1, y * 4 + 2, y * 4 + 3};
             for(int x = 0; x < bx; x++){
-                std::vector<int> x_index = {x * 4, x * 4 + 1, x * 4 + 2, x * 4 + 3};
+                int x_index[] = {x * 4, x * 4 + 1, x * 4 + 2, x * 4 + 3};
                 for(int zz = 0; zz < 4; zz++){
                     for(int yy = 0; yy < 4; yy++){
                         for(int xx = 0; xx < 4; xx++){
