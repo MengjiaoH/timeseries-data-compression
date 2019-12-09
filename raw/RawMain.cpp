@@ -3,17 +3,13 @@
 #include <vector>
 #include <dirent.h>
 
-#include "loadVTK.h"
+#include "loadRaw.h"
 #include "parseArgs.h"
 #include "helper.h"
 #include "writeFile.h"
 
 #include "ospcommon/math/vec.h"
 #include "ospcommon/math/box.h"
-
-// This is used for writing to pidx file
-// #include "writePIDX.h"
-
 
 int main(int argc, const char** argv)
 {
@@ -43,9 +39,8 @@ int main(int argc, const char** argv)
     std::sort(files.begin(), files.end(), sort_timestep());
 
     std::vector<std::vector<float>> volumes;
-    ospcommon::math::vec3i dims;
+    ospcommon::math::vec3i dims;  
 
-    // only load 2 time steps for testing now
     int count = args.numTimesteps;
     int numFiles = 0;
     std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
@@ -54,7 +49,7 @@ int main(int argc, const char** argv)
             std::cout << "file dir " << t.fileDir << " time step = " << t.timeStep << std::endl;
             // load all volumes
             std::vector<float> v;
-            loadVTK(t.fileDir, v, dims);
+            loadRaw(t.fileDir, v, dims);
             if(numFiles % 5 != 0){
                 // For others time step in between, we save differents
                 compute_deltas(volumes.back(), v);
@@ -67,8 +62,8 @@ int main(int argc, const char** argv)
     std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 
     std::cout << "It took " << time_span.count() << " seconds loading " << count << " time step." << std::endl;
-
-    ospcommon::math::vec3i writeDims(dims.x, dims.y, dims.z - 2);
+    
+    ospcommon::math::vec3i writeDims(dims.x, dims.y, dims.z);
     for(int i = 0; i < volumes.size(); i++){
         if(i % 5 == 0){
             // save reference frame as 3D dataset
@@ -78,11 +73,10 @@ int main(int argc, const char** argv)
             // other 4 time steps save as 4D deltas
             std::string file = "/home/mengjiao/Desktop/data/compression/compress_4/test_delta" + std::to_string(i) + ".raw";
             std::vector<std::vector<float>> sub_volume(volumes.begin() + i, volumes.begin() + i + 4); 
-            std::cout << "debug " << std::endl;
             writeRaw_4(sub_volume, file, writeDims);
         }
     }
     
-    
     return 0;
+
 }
